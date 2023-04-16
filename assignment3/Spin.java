@@ -26,12 +26,8 @@ public class Spin {
         }
         stringBuilder.delete(0, stringBuilder.length());
         for (int i = 0; i < ch.size(); i++) {
-            for (int j = 0; j < in.get(i); j++) {
-                stringBuilder.append(ch.get(i));
-            }
+            stringBuilder.append(String.valueOf(ch.get(i)).repeat(Math.max(0, in.get(i))));
         }
-        System.out.println(ch);
-        System.out.println(stringBuilder);
         return stringBuilder.toString();
     }
 
@@ -53,7 +49,7 @@ public class Spin {
                     arr[ySteps - n - 1][i] = s.charAt(k++);
                 }
             } else {
-                for (int i = 0; i < arr[0].length; i++) {
+                for (int i = 0; i < arr[0].length - 1; i++) {
                     arr[arr.length - 1][i] = s.charAt(k++);
                 }
             }
@@ -73,9 +69,9 @@ public class Spin {
     }
 
     public static void print(char[][] a) {
-        for (int i = 0; i < a.length; i++) {
-            for (int j = 0; j < a[i].length; j++) {
-                System.out.print(a[i][j]);
+        for (char[] chars : a) {
+            for (char aChar : chars) {
+                System.out.print(aChar);
             }
             System.out.println();
         }
