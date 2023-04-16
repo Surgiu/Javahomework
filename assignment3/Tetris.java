@@ -128,8 +128,9 @@ public class Tetris {
     }
 
     public static int[][] eliminate(int[][] a) {
-        int w = -1;
+        int w = 0;
         do {
+            w = -1;
             for (int i = 2; i < a.length - 1; i++) {
                 int count = 0;
                 for (int j = 0; j < a[i].length; j++) {
