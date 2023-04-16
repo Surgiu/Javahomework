@@ -19,7 +19,6 @@ public class Tetris {
         for (int i = 0; i < map[map.length - 1].length; i++) {
             map[map.length - 1][i] = 1;
         }
-        //map[map.length-1][0]=2;
         return map;
     }
 
@@ -131,8 +130,6 @@ public class Tetris {
     }
 
     public static int[][] eliminate(int[][] a) {
-        int r = 0;//待消去行的行标
-        //int[][] b = new int[a.length][a[r].length];//覆盖后的新地图
         for (int i = 2; i < a.length - 1; i++) {//检测
             int count = 0;
             for (int j = 0; j < a[i].length; j++) {
@@ -141,13 +138,7 @@ public class Tetris {
                 }
             }
             if (count == a[i].length) {
-                r = i;
-//                for (int k = r + 1; k < a.length-1; k++) {//拷贝待删行下方的地图
-//                    for (int l = 0; l < a[k].length; l++) {
-//                        a[k][l] = a[k][l];
-//                    }
-//                }
-                for (int k = 1; k < r; k++) {//拷贝待删行上方的地图
+                for (int k = i; k > 0; k--) {//拷贝待删行上方的地图
                     for (int l = 0; l < a[k].length; l++) {
                         a[k][l] = a[k - 1][l];
                     }
@@ -170,7 +161,7 @@ public class Tetris {
     }
 
     public static int[][] res(int[][] map) {
-        int[][] map2 = new int[map.length - 3][map[1].length];
+        int[][] map2 = new int[map.length - 3][map[0].length];
         for (int i = 0; i < map2.length; i++) {
             for (int j = 0; j < map2[i].length; j++) {
                 map2[i][j] = map[i + 2][j];
