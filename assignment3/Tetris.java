@@ -1,5 +1,6 @@
 package assignment3;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Tetris {
@@ -15,9 +16,7 @@ public class Tetris {
         int row = s.nextInt() + 3;
         int col = s.nextInt();
         int[][] map = new int[row][col];
-        for (int i = 0; i < map[map.length - 1].length; i++) {
-            map[map.length - 1][i] = 1;
-        }
+        Arrays.fill(map[map.length - 1], 1);
         return map;
     }
 
@@ -118,8 +117,7 @@ public class Tetris {
                 m[rowIndex + 1][position + 2] = 1;
 
             }
-
-            m = eliminate(m);
+            eliminate(m);
             if (checkEnd(m)) {
                 return m;
             }
@@ -127,7 +125,7 @@ public class Tetris {
         return m;
     }
 
-    public static int[][] eliminate(int[][] a) {
+    public static void eliminate(int[][] a) {
         int w = 0;
         do {
             w = -1;
@@ -140,27 +138,24 @@ public class Tetris {
                 }
                 if (count == a[i].length) {
                     for (int k = i; k > 0; k--) {
-                        for (int l = 0; l < a[k].length; l++) {
-                            a[k][l] = a[k - 1][l];
-                        }
+                        System.arraycopy(a[k - 1], 0, a[k], 0, a[k].length);
                     }
                 }
             }
             int n = 0;
             l:
-            for (int i = 0; i < a.length; i++) {
+            for (int[] ints : a) {
                 for (int j = 0; j < a[0].length; j++) {
-                    if (a[i][j] == 1) {
+                    if (ints[j] == 1) {
                         n++;
                     }
-                    if (n == a[i].length) {
+                    if (n == ints.length) {
                         w++;
                         break l;
                     }
                 }
             }
         } while (w == -1);
-        return a;
     }
 
     public static boolean checkEnd(int[][] map) {
@@ -178,17 +173,15 @@ public class Tetris {
     public static int[][] res(int[][] map) {
         int[][] map2 = new int[map.length - 3][map[0].length];
         for (int i = 0; i < map2.length; i++) {
-            for (int j = 0; j < map2[i].length; j++) {
-                map2[i][j] = map[i + 2][j];
-            }
+            System.arraycopy(map[i + 2], 0, map2[i], 0, map2[i].length);
         }
         return map2;
     }
 
     public static void printMap(int[][] result) {
-        for (int i = 0; i < result.length; i++) {
-            for (int j = 0; j < result[i].length; j++) {
-                System.out.print(result[i][j]);
+        for (int[] ints : result) {
+            for (int anInt : ints) {
+                System.out.print(anInt);
             }
             System.out.println();
         }
