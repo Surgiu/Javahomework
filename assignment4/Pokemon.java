@@ -13,11 +13,14 @@ public class Pokemon {
     public Pokemon(String name, int maxHP, int attack, int speed, Skill... skills) {
         this.name = name;
         this.maxHP = maxHP;
-        this.HP=maxHP;
+        this.HP = maxHP;
         this.attack = attack;
         this.speed = speed;
-        for (int i = 0; i < skills.length; i++) {
-            this.skills.add(skills[i]);
+        for (Skill skill : skills) {
+            skill.setPP(skill.getMaxPP());
+            if (this.skills != null) {
+                this.skills.add(skill);
+            }
         }
     }
 
@@ -26,15 +29,15 @@ public class Pokemon {
     }
 
     public void useSkillTo(Pokemon target, Skill skill) {
-        if(skill.getType().equals(Skill.Type.Heal)){
-            target.HP+=skill.getPower();
-            if(target.HP>maxHP) {
-                target.HP=maxHP;
+        if (skill.getType().equals(Skill.Type.Heal)) {
+            target.HP += skill.getPower();
+            if (target.HP > maxHP) {
+                target.HP = maxHP;
             }
-        }else if(skill.getType().equals(Skill.Type.Attack)) {
-            target.HP-=skill.getPower();
-            if(target.HP<0) {
-                target.HP=0;
+        } else if (skill.getType().equals(Skill.Type.Attack)) {
+            target.HP -= skill.getPower() * this.attack;
+            if (target.HP < 0) {
+                target.HP = 0;
             }
         }
     }
@@ -56,7 +59,11 @@ public class Pokemon {
     }
 
     public void setHP(int HP) {
-        this.HP = HP;
+        if (HP < 0) {
+            this.HP = 0;
+        } else {
+            this.HP = Math.min(HP, maxHP);
+        }
     }
 
     public int getMaxHP() {
