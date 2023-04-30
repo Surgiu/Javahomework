@@ -48,7 +48,11 @@ public class Skill {
     }
 
     public void setPP(int PP) {
-        this.PP = PP;
+        if (PP < 0) {
+            this.PP = 0;
+        } else if (PP > maxPP) {
+            this.PP = maxPP;
+        }
     }
 
     public int getMaxPP() {
