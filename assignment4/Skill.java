@@ -50,8 +50,8 @@ public class Skill {
     public void setPP(int PP) {
         if (PP < 0) {
             this.PP = 0;
-        } else if (PP > maxPP) {
-            this.PP = maxPP;
+        } else {
+            this.PP = Math.min(maxPP, PP);
         }
     }
 
