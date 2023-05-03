@@ -4,7 +4,7 @@ public class Skill {
     private String name;
     private Type type;
     private int power;
-    private int PP;
+    private static int PP;
     private int maxPP;
 
     enum Type {
@@ -15,7 +15,7 @@ public class Skill {
         this.name = name;
         this.type = type;
         this.power = power;
-        this.PP = Math.max(PP, 0);
+        Skill.PP = Math.max(PP, 0);
         this.maxPP = Math.max(PP, 0);
     }
 
@@ -49,9 +49,9 @@ public class Skill {
 
     public void setPP(int PP) {
         if (PP < 0) {
-            this.PP = 0;
+            Skill.PP = 0;
         } else {
-            this.PP = Math.min(maxPP, PP);
+            Skill.PP = Math.min(maxPP, PP);
         }
     }
 

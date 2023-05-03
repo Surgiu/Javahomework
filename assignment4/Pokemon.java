@@ -8,7 +8,7 @@ public class Pokemon {
     private int maxHP;
     private int attack;
     private int speed;
-    private ArrayList<Skill> skills;
+    private ArrayList<Skill> skills = new ArrayList<>();
 
     public Pokemon(String name, int maxHP, int attack, int speed, Skill... skills) {
         this.name = name;
@@ -16,11 +16,13 @@ public class Pokemon {
         this.HP = maxHP;
         this.attack = attack;
         this.speed = speed;
+        ArrayList<Skill>skills1=new ArrayList<>();
         for (Skill skill : skills) {
+            skills1.add(skill);
+        }
+        for (Skill skill : skills1) {
             skill.setPP(skill.getMaxPP());
-            if (this.skills != null) {
-                this.skills.add(skill);
-            }
+            this.skills.add(skill);
         }
     }
 
@@ -43,7 +45,7 @@ public class Pokemon {
     }
 
     public String toString() {
-        return name + ": " + HP + "/" + maxHP;
+        return name + ": " + this.HP + "/" + maxHP;
     }
 
     public String getName() {
