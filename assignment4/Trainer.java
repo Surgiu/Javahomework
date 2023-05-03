@@ -4,24 +4,25 @@ import java.util.ArrayList;
 
 public class Trainer {
     private String name;
-    private ArrayList<Pokemon> pokemons;
+    private ArrayList<Pokemon> pokemons = new ArrayList<>();
     private Pokemon activatePokemon;
 
     public Trainer(String name, Pokemon... pokemons) {
         this.name = name;
-        this.pokemons.add(activatePokemon);
-        addPokemon();
+        addPokemon(pokemons);
+        this.activatePokemon = summon();
+        summon(activatePokemon.getName());
     }
 
     public void addPokemon(Pokemon... poke) {
-        for (int i = 0; i < poke.length; i++) {
-            this.pokemons.add(poke[i]);
+        for (Pokemon pokemon : poke) {
+            this.pokemons.add(pokemon);
             for (int j = 0; j < this.pokemons.size() - 1; j++) {
-                if (poke[i].getName().equals(this.pokemons.get(j).getName())) {
-                    this.pokemons.remove(i);
+                if (pokemon.getName().equals(this.pokemons.get(j).getName())) {
+                    this.pokemons.remove(this.pokemons.size() - 1);
                 }
             }
-            if (this.pokemons.size() > 6) {
+            if (this.pokemons.size() >= 6) {
                 break;
             }
         }
@@ -37,7 +38,7 @@ public class Trainer {
         }
     }
 
-    private boolean isAlive(String name) {
+    public boolean isAlive(String name) {
         for (Pokemon pokemon : this.pokemons) {
             if (pokemon.getName().equals(name)) {
                 return pokemon.getHP() > 0;
@@ -46,8 +47,8 @@ public class Trainer {
         return false;
     }
 
-    private boolean isAlive(Pokemon poke) {
-        return poke.getHP()>0;
+    public boolean isAlive(Pokemon poke) {
+        return poke.getHP() > 0;
     }
 
     public Pokemon getPokemon(String name) {
@@ -60,16 +61,18 @@ public class Trainer {
     }
 
     public Pokemon summon() {
-        if(isAlive(this.pokemons.get(0))) {
-            activatePokemon=getPokemon(this.pokemons.get(0).getName());
-            getPokemon(this.pokemons.get(0).getName());
+        for (Pokemon pokemon : this.pokemons) {
+            if (isAlive(pokemon)) {
+                this.activatePokemon = getPokemon(pokemon.getName());
+                return getPokemon(pokemon.getName());
+            }
         }
         return null;
     }
 
     public Pokemon summon(String name) {
-        if(isAlive(name)) {
-            activatePokemon=getPokemon(name);
+        if (isAlive(name)) {
+            this.activatePokemon = getPokemon(name);
             getPokemon(name);
         }
         return null;
