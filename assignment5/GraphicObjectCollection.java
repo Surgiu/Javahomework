@@ -11,13 +11,13 @@ public class GraphicObjectCollection implements ObjectCollection {
     public void addObject(ObjectColor objectColor, double... parameters) {
         switch (parameters.length) {
             case 1:
-                Sphere sphere = new Sphere(parameters[0]);
+                Sphere sphere = new Sphere(objectColor ,parameters[0]);
                 graphicObjects.add(sphere);
             case 2:
-                Cone cone = new Cone(parameters[0], parameters[1]);
+                Cone cone = new Cone(objectColor, parameters[0], parameters[1]);
                 graphicObjects.add(cone);
             case 3:
-                Cuboid cuboid = new Cuboid(parameters[0], parameters[1], parameters[2]);
+                Cuboid cuboid = new Cuboid(objectColor,parameters[0], parameters[1], parameters[2]);
                 graphicObjects.add(cuboid);
         }
     }
