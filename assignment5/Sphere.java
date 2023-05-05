@@ -4,6 +4,7 @@ public class Sphere extends GraphicObject {
     private double radius;
 
     public Sphere(ObjectColor color,double radius) {
+        super(color);
         this.radius = radius;
     }
 

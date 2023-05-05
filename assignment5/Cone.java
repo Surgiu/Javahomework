@@ -5,6 +5,7 @@ public class Cone extends GraphicObject {
     private double length;
 
     public Cone(ObjectColor objectColor, double radius, double length) {
+        super(objectColor);
         this.radius = radius;
         this.length = length;
     }

@@ -1,6 +1,7 @@
 package assignment5;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -11,13 +12,13 @@ public class GraphicObjectCollection implements ObjectCollection {
     public void addObject(ObjectColor objectColor, double... parameters) {
         switch (parameters.length) {
             case 1:
-                Sphere sphere = new Sphere(objectColor ,parameters[0]);
+                Sphere sphere = new Sphere(objectColor, parameters[0]);
                 graphicObjects.add(sphere);
             case 2:
                 Cone cone = new Cone(objectColor, parameters[0], parameters[1]);
                 graphicObjects.add(cone);
             case 3:
-                Cuboid cuboid = new Cuboid(objectColor,parameters[0], parameters[1], parameters[2]);
+                Cuboid cuboid = new Cuboid(objectColor, parameters[0], parameters[1], parameters[2]);
                 graphicObjects.add(cuboid);
         }
     }
@@ -73,30 +74,62 @@ public class GraphicObjectCollection implements ObjectCollection {
 
     @Override
     public List<String> getCountsByVolume() {
-        List<Double> v = new ArrayList<>();
-        for (GraphicObject graphicObject : graphicObjects) {
-            v.add(graphicObject.volume());
+        List<GraphicObject> o = new ArrayList<>();
+        for (GraphicObject object : graphicObjects) {
+            o.add(object);
         }
-        v.sort(Comparator.naturalOrder());
+        o = sortByVolume(o);
         List<String> res = new ArrayList<>();
-        for (Double aDouble : v) {
-            res.add(aDouble.toString());
+        for (GraphicObject graphicObject : o) {
+            res.add(graphicObject.toString());
         }
         return res;
     }
 
+    public static List<GraphicObject> sortByVolume(List<GraphicObject> l1) {
+        l1.sort(new Comparator<GraphicObject>() {
+            @Override
+            public int compare(GraphicObject o1, GraphicObject o2) {
+                if (o1.volume() > o2.volume()) {
+                    return 1;
+                } else if (o1.volume() < o2.volume()) {
+                    return -1;
+                } else {
+                    return o1.getId() - o2.getId();
+                }
+            }
+        });
+        return l1;
+    }
+
     @Override
     public List<String> getObjectsBySurface() {
-        List<Double> s = new ArrayList<>();
-        for (GraphicObject graphicObject : graphicObjects) {
-            s.add(graphicObject.surfaceMeanSize());
+        List<GraphicObject> o = new ArrayList<>();
+        for (GraphicObject object : graphicObjects) {
+            o.add(object);
         }
-        s.sort(Comparator.naturalOrder());
+        o = sortByArea(o);
         List<String> res = new ArrayList<>();
-        for (Double aDouble : s) {
-            res.add(aDouble.toString());
+        for (GraphicObject graphicObject : o) {
+            res.add(graphicObject.toString());
         }
         return res;
+    }
+
+    public static List<GraphicObject> sortByArea(List<GraphicObject> l1) {
+        l1.sort(new Comparator<GraphicObject>() {
+            @Override
+            public int compare(GraphicObject o1, GraphicObject o2) {
+                if (o1.surfaceMeanSize() > o2.surfaceMeanSize()) {
+                    return 1;
+                } else if (o1.surfaceMeanSize() < o2.surfaceMeanSize()) {
+                    return -1;
+                } else {
+                    return o1.getId() - o2.getId();
+                }
+            }
+        });
+        return l1;
     }
 
     @Override

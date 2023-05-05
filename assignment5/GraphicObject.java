@@ -3,6 +3,13 @@ package assignment5;
 public abstract class GraphicObject {
     private ObjectColor color;
     private int id;
+    private static int count = 0;
+
+    public GraphicObject(ObjectColor color) {
+        this.color = color;
+        this.id = count;
+        count++;
+    }
 
     public abstract double surfaceMeanSize();
 

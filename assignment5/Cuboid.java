@@ -6,6 +6,7 @@ public class Cuboid extends GraphicObject {
     private double z;
 
     public Cuboid(ObjectColor objectColor, double x, double y, double z) {
+        super(objectColor);
         this.x = x;
         this.y = y;
         this.z = z;
