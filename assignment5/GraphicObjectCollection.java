@@ -134,6 +134,7 @@ public class GraphicObjectCollection implements ObjectCollection {
         for (GraphicObject graphicObject : graphicObjects) {
             vTotal += graphicObject.volume();
         }
-        return V - vTotal;
+        int res = (int) Math.floor(100 * (V - vTotal));
+        return 0.01 * res;
     }
 }

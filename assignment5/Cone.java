@@ -17,14 +17,15 @@ public class Cone extends GraphicObject {
 
     @Override
     public double surfaceMeanSize() {
-        String s = String.format("%.2f", Math.PI * radius * (radius + length));
+        String s = String.format("%.2f", 0.01 * Math.floor(100 * Math.PI * radius * (radius + length)));
         return Double.parseDouble(s);
     }
 
     @Override
     public double volume() {
         double h = Math.sqrt(length * length - radius * radius);
-        String s = String.format("%.2f", Math.PI * radius * radius * h / 3.0);
+        int d = (int) Math.floor(100 * Math.PI * radius * radius * h / 3.0);
+        String s = String.format("%.2f", 0.01 * d);
         return Double.parseDouble(s);
     }
 

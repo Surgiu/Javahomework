@@ -3,21 +3,22 @@ package assignment5;
 public class Sphere extends GraphicObject {
     private double radius;
 
-    public Sphere(ObjectColor color,double radius) {
+    public Sphere(ObjectColor color, double radius) {
         super(color);
         this.radius = radius;
     }
 
     @Override
     public double surfaceMeanSize() {
-        String s = String.format("%.2f", 4.0 * Math.PI * radius * radius);
+        int d = (int) Math.floor(100 * 4.0 * Math.PI * radius * radius);
+        String s = String.format("%.2f", 0.01 * d);
         return Double.parseDouble(s);
     }
 
     @Override
     public double volume() {
-        double s = 4.0 * Math.PI * radius * radius * radius / 3.0;
-        String ss = String.format("%.2f", s);
+        int s = (int) (100 * 4.0 * Math.PI * radius * radius * radius / 3.0);
+        String ss = String.format("%.2f", 0.01 * s);
         return Double.parseDouble(ss);
     }
 
