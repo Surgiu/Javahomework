@@ -26,7 +26,7 @@ public class Cuboid extends GraphicObject {
 
     @Override
     public String toString() {
-        return "Cuboid: x=[" + String.format("%.2f", this.x) + "], y=[" + String.format("%.2f", this.y) + "], z=[" + String.format("%.2f", this.z) + "]";
+        return "Cuboid: x=" + String.format("%.2f", this.x) + ", y=" + String.format("%.2f", this.y) + ", z=" + String.format("%.2f", this.z);
     }
 
     public double getX() {

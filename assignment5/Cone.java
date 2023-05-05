@@ -12,7 +12,7 @@ public class Cone extends GraphicObject {
 
     @Override
     public String toString() {
-        return "Cone: " + "r=[" + String.format("%.2f", this.radius) + "], l=[" + String.format("%.2f", this.length) + "]";
+        return "Cone: " + "r=" + String.format("%.2f", this.radius) + ", l=" + String.format("%.2f", this.length);
     }
 
     @Override

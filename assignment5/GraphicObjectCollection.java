@@ -1,7 +1,6 @@
 package assignment5;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -10,16 +9,12 @@ public class GraphicObjectCollection implements ObjectCollection {
 
     @Override
     public void addObject(ObjectColor objectColor, double... parameters) {
-        switch (parameters.length) {
-            case 1:
-                Sphere sphere = new Sphere(objectColor, parameters[0]);
-                graphicObjects.add(sphere);
-            case 2:
-                Cone cone = new Cone(objectColor, parameters[0], parameters[1]);
-                graphicObjects.add(cone);
-            case 3:
-                Cuboid cuboid = new Cuboid(objectColor, parameters[0], parameters[1], parameters[2]);
-                graphicObjects.add(cuboid);
+        if (parameters.length == 1) {
+            this.graphicObjects.add(new Sphere(objectColor, parameters[0]));
+        } else if (parameters.length == 2) {
+            this.graphicObjects.add(new Cone(objectColor, parameters[0], parameters[1]));
+        } else if (parameters.length == 3) {
+            this.graphicObjects.add(new Cuboid(objectColor, parameters[0], parameters[1], parameters[2]));
         }
     }
 
@@ -73,7 +68,7 @@ public class GraphicObjectCollection implements ObjectCollection {
     }
 
     @Override
-    public List<String> getCountsByVolume() {
+    public List<String> getObjectByVolume() {
         List<GraphicObject> o = new ArrayList<>();
         for (GraphicObject object : graphicObjects) {
             o.add(object);

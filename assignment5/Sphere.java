@@ -23,7 +23,7 @@ public class Sphere extends GraphicObject {
 
     @Override
     public String toString() {
-        return "Sphere: r=[" + String.format("%.2f", this.radius) + "]";
+        return "Sphere: r=" + String.format("%.2f", this.radius);
     }
 
     public double getRadius() {
