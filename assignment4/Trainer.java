@@ -64,18 +64,18 @@ public class Trainer {
         for (Pokemon pokemon : this.pokemons) {
             if (isAlive(pokemon)) {
                 this.activatePokemon = getPokemon(pokemon.getName());
-                return getPokemon(pokemon.getName());
+                break;
             }
         }
-        return null;
+        return getActivatePokemon();
     }
 
     public Pokemon summon(String name) {
         if (isAlive(name)) {
             this.activatePokemon = getPokemon(name);
-            getPokemon(name);
+
         }
-        return null;
+        return activatePokemon;
     }
 
     public String getName() {

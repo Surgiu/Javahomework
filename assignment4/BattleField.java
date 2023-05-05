@@ -13,37 +13,36 @@ public class BattleField {
     public void battle(String skillOfA, String skillOfB) {
         Pokemon p1 = trainerA.summon();
         Pokemon p2 = trainerB.summon();
-        Skill sa = findSkill(p1, skillOfA);
-        Skill sb = findSkill(p2, skillOfB);
         if (p1.getSpeed() >= p2.getSpeed()) {
-            execute(p1, p2, sa);
-            if (p2.isAlive()) {
-                execute(p2, p1, sb);
-            } else {
-                trainerB.summon();
-            }
+            exe(skillOfB, skillOfA, p2, p1, trainerA, trainerB);
         } else {
-            execute(p2, p1, sb);
-            if (p1.isAlive()) {
-                execute(p1, p2, sa);
-            } else {
-                trainerA.summon();
-            }
+            exe(skillOfA, skillOfB, p1, p2, trainerB, trainerA);
         }
         this.turn++;
     }
 
-    void execute(Pokemon pokemon1, Pokemon pokemon2, Skill skill) {
-        if (pokemon1.getSkills().get(0).getPP() > 0) {
-            switch (skill.getType()) {
-                case Heal:
-                    pokemon1.useSkillTo(pokemon1, skill);
-                case Attack:
-                    pokemon1.useSkillTo(pokemon2, skill);
+    private void exe(String skillOfA, String skillOfB, Pokemon p1, Pokemon p2, Trainer trainerB, Trainer trainerA) {
+        execute(p2, p1, findSkill(p2, skillOfB));
+        if (p1.isAlive()) {
+            execute(p1, p2, findSkill(p1, skillOfA));
+            if (!(p2.isAlive())) {
+                trainerB.removePokemon(trainerB.getActivatePokemon().getName());
+                trainerB.summon();
+            }
+        } else {
+            trainerA.removePokemon(trainerA.getActivatePokemon().getName());
+            trainerA.summon();
+        }
+    }
+
+    void execute(Pokemon pokemon1, Pokemon pokemon2, Skill p1skill) {
+        if (pokemon1.isAlive() && p1skill.getPP() > 0) {
+            switch (p1skill.getType()) {
+                case Heal -> pokemon1.useSkillTo(pokemon1, p1skill);
+                case Attack -> pokemon1.useSkillTo(pokemon2, p1skill);
             }
         }
-        pokemon1.getSkills().get(0).setPP(pokemon1.getSkills().get(0).getPP() - 1);
-
+        p1skill.setPP(p1skill.getPP() - 1);
     }
 
     Skill findSkill(Pokemon pokemon, String name) {
@@ -64,21 +63,21 @@ public class BattleField {
             return 0;
         }
     }
-    String winner="";
+
+    String winner = "";
+
     @Override
     public String toString() {
         String turns = "Turn " + (this.turn - 1) + ":";
         String tA = "\nTrainer " + trainerA.getName() + "'s Pokemon " + trainerA.getActivatePokemon().getName() + ": " + trainerA.getActivatePokemon().getHP() + "/" + trainerA.getActivatePokemon().getMaxHP();
         String tB = "\nTrainer " + trainerB.getName() + "'s Pokemon " + trainerB.getActivatePokemon().getName() + ": " + trainerB.getActivatePokemon().getHP() + "/" + trainerB.getActivatePokemon().getMaxHP();
         String win = "";
-        switch (checkWin()) {
-            case 1:
-                win = "\nWinner: " + trainerA.getName();
-            case 2:
-                win = "\nWinner: " + trainerB.getName();
-            case 3:
-                win = null;
+        if (checkWin() == 1) {
+            win = "\nWinner: " + trainerA.getName();
+        } else if (checkWin() == 2) {
+            win = "\nWinner: " + trainerB.getName();
         }
+        System.out.println();
         return turns + tA + tB + win;
     }
 

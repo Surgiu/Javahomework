@@ -8,7 +8,7 @@ public class Pokemon {
     private int maxHP;
     private int attack;
     private int speed;
-    private ArrayList<Skill> skills = new ArrayList<>();
+    private ArrayList<Skill> skills;
 
     public Pokemon(String name, int maxHP, int attack, int speed, Skill... skills) {
         this.name = name;
@@ -16,14 +16,11 @@ public class Pokemon {
         this.HP = maxHP;
         this.attack = attack;
         this.speed = speed;
-        ArrayList<Skill>skills1=new ArrayList<>();
+        ArrayList<Skill> skills1 = new ArrayList<>();
         for (Skill skill : skills) {
-            skills1.add(skill);
+            skills1.add(new Skill(skill.getName(), skill.getType(), skill.getPower(), skill.getPP()));
         }
-        for (Skill skill : skills1) {
-            skill.setPP(skill.getMaxPP());
-            this.skills.add(skill);
-        }
+        this.skills = skills1;
     }
 
     public boolean isAlive() {
@@ -33,8 +30,8 @@ public class Pokemon {
     public void useSkillTo(Pokemon target, Skill skill) {
         if (skill.getType().equals(Skill.Type.Heal)) {
             target.HP += skill.getPower();
-            if (target.HP > maxHP) {
-                target.HP = maxHP;
+            if (target.HP > target.maxHP) {
+                target.HP = target.maxHP;
             }
         } else if (skill.getType().equals(Skill.Type.Attack)) {
             target.HP -= skill.getPower() * this.attack;
