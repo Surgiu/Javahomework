@@ -11,8 +11,8 @@ public class BattleField {
     }
 
     public void battle(String skillOfA, String skillOfB) {
-        Pokemon p1 = trainerA.summon();
-        Pokemon p2 = trainerB.summon();
+        Pokemon p1 = trainerA.getActivatePokemon();
+        Pokemon p2 = trainerB.getActivatePokemon();
         if (p1.getSpeed() >= p2.getSpeed()) {
             exe(skillOfB, skillOfA, p2, p1, trainerA, trainerB);
         } else {
@@ -21,7 +21,7 @@ public class BattleField {
         this.turn++;
     }
 
-    private void exe(String skillOfA, String skillOfB, Pokemon p1, Pokemon p2, Trainer trainerB, Trainer trainerA) {
+    void exe(String skillOfA, String skillOfB, Pokemon p1, Pokemon p2, Trainer trainerB, Trainer trainerA) {
         execute(p2, p1, findSkill(p2, skillOfB));
         if (p1.isAlive()) {
             execute(p1, p2, findSkill(p1, skillOfA));
