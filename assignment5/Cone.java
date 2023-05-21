@@ -27,10 +27,8 @@ public class Cone extends GraphicObject {
     @Override
     public double volume() {
         double h = Math.sqrt(length * length - radius * radius);
-//        return Math.PI * radius * radius * h / 3.0;
-        double t2 = Math.floor(100 * Math.PI * radius * radius * h / 3.0);
-        String s = String.format("%.2f", t2 / 100.0);
-        return Double.parseDouble(s);
+        double v = Math.PI * radius * radius * h / 3.0;
+        return v;
     }
 
     public double getRadius() {

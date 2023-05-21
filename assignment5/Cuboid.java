@@ -21,9 +21,8 @@ public class Cuboid extends GraphicObject {
 
     @Override
     public double volume() {
-        double res = Math.floor(100.0 * x * y * z) / 100.0;
-        String S = String.format("%.2f", res);
-        return Double.parseDouble(S);
+        double v = x * y * z;
+        return v;
     }
 
     @Override

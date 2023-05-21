@@ -17,9 +17,8 @@ public class Sphere extends GraphicObject {
 
     @Override
     public double volume() {
-        int x = (int) Math.floor(4.0 * Math.PI * radius * radius * radius / 3.0 * 100.0);
-        String f = String.format("%.2f", 0.01 * x);
-        return Double.parseDouble(f);
+        double v = 4.0 / 3.0 * Math.PI * radius * radius * radius;
+        return v;
     }
 
     @Override

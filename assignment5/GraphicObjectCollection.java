@@ -9,28 +9,28 @@ public class GraphicObjectCollection implements ObjectCollection {
     public void addObject(ObjectColor objectColor, double... parameters) {
         if (parameters.length == 1) {
             this.graphicObjects.add(new Sphere(objectColor, parameters[0]));
-        } else if (parameters.length == 2) {
-            this.graphicObjects.add(new Cone(objectColor, parameters[0], parameters[1]));
         } else if (parameters.length == 3) {
             this.graphicObjects.add(new Cuboid(objectColor, parameters[0], parameters[1], parameters[2]));
+        } else if (parameters.length == 2) {
+            this.graphicObjects.add(new Cone(objectColor, parameters[0], parameters[1]));
         }
     }
 
     @Override
     public List<String> getObjectInfo() {
-        List<String> info = new ArrayList<>();
+        List<String> s = new ArrayList<>();
         for (GraphicObject graphicObject : graphicObjects) {
-            info.add(graphicObject.toString());
+            s.add(graphicObject.toString());
         }
-        return info;
+        return s;
     }
 
-    @Override
+
     public int getObjectCount() {
         return graphicObjects.size();
     }
 
-    @Override
+
     public List<String> getCountsByColor() {
         int red = 0;
         int blue = 0;
@@ -115,11 +115,11 @@ public class GraphicObjectCollection implements ObjectCollection {
 
     @Override
     public double getWaterInjected(double area, double height) {
-        double V = area * height;
-        double vTotal = 0;
-        for (GraphicObject graphicObject : graphicObjects) {
-            vTotal += graphicObject.volume();
+        double V = area * height, v2 = 0;
+        for (int i = 0; i < graphicObjects.size(); i++) {
+            v2 += graphicObjects.get(i).volume();
         }
-        return V - vTotal;
+        double rest = V - v2;
+        return rest;
     }
 }
