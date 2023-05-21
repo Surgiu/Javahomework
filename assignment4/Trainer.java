@@ -73,7 +73,6 @@ public class Trainer {
     public Pokemon summon(String name) {
         if (isAlive(name)) {
             this.activatePokemon = getPokemon(name);
-
         }
         return activatePokemon;
     }

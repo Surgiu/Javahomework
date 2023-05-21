@@ -10,16 +10,16 @@ public class Sphere extends GraphicObject {
 
     @Override
     public double surfaceMeanSize() {
-        int d = (int) Math.floor(100 * 4.0 * Math.PI * radius * radius);
-        String s = String.format("%.2f", 0.01 * d);
+        double d = Math.floor(100.0 * 4.0 * Math.PI * radius * radius);
+        String s = String.format("%.2f", d / 100.0);
         return Double.parseDouble(s);
     }
 
     @Override
     public double volume() {
-        int s = (int) (100 * 4.0 * Math.PI * radius * radius * radius / 3.0);
-        String ss = String.format("%.2f", 0.01 * s);
-        return Double.parseDouble(ss);
+        int x = (int) Math.floor(4.0 * Math.PI * radius * radius * radius / 3.0 * 100.0);
+        String f = String.format("%.2f", 0.01 * x);
+        return Double.parseDouble(f);
     }
 
     @Override

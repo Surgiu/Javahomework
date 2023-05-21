@@ -1,8 +1,6 @@
 package assignment5;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class GraphicObjectCollection implements ObjectCollection {
     private List<GraphicObject> graphicObjects = new ArrayList<>();
@@ -34,45 +32,48 @@ public class GraphicObjectCollection implements ObjectCollection {
 
     @Override
     public List<String> getCountsByColor() {
-        int r = 0, y = 0, b = 0, g = 0, hei = 0, w = 0;
+        int red = 0;
+        int blue = 0;
+        int black = 0;
+        int green = 0;
+        int white = 0;
+        int yellow = 0;
         for (GraphicObject graphicObject : graphicObjects) {
+            //改成if-else
             switch (graphicObject.getColor()) {
-                case RED -> r++;
-                case BLUE -> b++;
-                case BLACK -> hei++;
-                case GREEN -> g++;
-                case WHITE -> w++;
-                case YELLOW -> y++;
+                case RED -> red++;
+                case BLUE -> blue++;
+                case BLACK -> black++;
+                case GREEN -> green++;
+                case WHITE -> white++;
+                case YELLOW -> yellow++;
             }
         }
         List<String> color = new ArrayList<>();
-        if (r != 0) {
-            color.add("RED " + r);
+        if (red != 0) {
+            color.add("RED " + red);
         }
-        if (y != 0) {
-            color.add("YELLOW " + y);
+        if (yellow != 0) {
+            color.add("YELLOW " + yellow);
         }
-        if (b != 0) {
-            color.add("BLUE " + b);
+        if (blue != 0) {
+            color.add("BLUE " + blue);
         }
-        if (g != 0) {
-            color.add("GREEN " + g);
+        if (green != 0) {
+            color.add("GREEN " + green);
         }
-        if (hei != 0) {
-            color.add("BLACK " + hei);
+        if (black != 0) {
+            color.add("BLACK " + black);
         }
-        if (w != 0) {
-            color.add("WHITE " + w);
+        if (white != 0) {
+            color.add("WHITE " + white);
         }
         return color;
     }
 
     @Override
     public List<String> getObjectByVolume() {
-        List<GraphicObject> o = new ArrayList<>();
-        for (GraphicObject object : graphicObjects) {
-            o.add(object);
-        }
+        List<GraphicObject> o = new ArrayList<>(graphicObjects);
         o = sortByVolume(o);
         List<String> res = new ArrayList<>();
         for (GraphicObject graphicObject : o) {
@@ -82,28 +83,19 @@ public class GraphicObjectCollection implements ObjectCollection {
     }
 
     public static List<GraphicObject> sortByVolume(List<GraphicObject> l1) {
-        l1.sort(new Comparator<GraphicObject>() {
-            @Override
-            public int compare(GraphicObject o1, GraphicObject o2) {
-                if (o1.volume() > o2.volume()) {
-                    return 1;
-                } else if (o1.volume() < o2.volume()) {
-                    return -1;
-                } else {
-                    return o1.getId() - o2.getId();
-                }
-            }
-        });
-        return l1;
+        GraphicObject[] a = (GraphicObject[]) l1.toArray();
+        Arrays.sort(a, ((o1, o2) -> {
+            return (int) (o1.volume() - o2.volume());
+        }));
+        ArrayList<GraphicObject> graphicObjects1 = new ArrayList<>();
+        Collections.addAll(graphicObjects1, a);
+        return graphicObjects1;
     }
 
     @Override
     public List<String> getObjectsBySurface() {
-        List<GraphicObject> o = new ArrayList<>();
-        for (GraphicObject object : graphicObjects) {
-            o.add(object);
-        }
-        o = sortByArea(o);
+        List<GraphicObject> o = new ArrayList<>(graphicObjects);
+        sortByArea(o);
         List<String> res = new ArrayList<>();
         for (GraphicObject graphicObject : o) {
             res.add(graphicObject.toString());
@@ -112,19 +104,13 @@ public class GraphicObjectCollection implements ObjectCollection {
     }
 
     public static List<GraphicObject> sortByArea(List<GraphicObject> l1) {
-        l1.sort(new Comparator<GraphicObject>() {
-            @Override
-            public int compare(GraphicObject o1, GraphicObject o2) {
-                if (o1.surfaceMeanSize() > o2.surfaceMeanSize()) {
-                    return 1;
-                } else if (o1.surfaceMeanSize() < o2.surfaceMeanSize()) {
-                    return -1;
-                } else {
-                    return o1.getId() - o2.getId();
-                }
-            }
-        });
-        return l1;
+        GraphicObject[] a = (GraphicObject[]) l1.toArray();
+        Arrays.sort(a, ((o1, o2) -> {
+            return (int) (o1.surfaceMeanSize() - o2.surfaceMeanSize());
+        }));
+        ArrayList<GraphicObject> graphicObjects1 = new ArrayList<>();
+        Collections.addAll(graphicObjects1, a);
+        return graphicObjects1;
     }
 
     @Override
@@ -134,7 +120,6 @@ public class GraphicObjectCollection implements ObjectCollection {
         for (GraphicObject graphicObject : graphicObjects) {
             vTotal += graphicObject.volume();
         }
-        int res = (int) Math.floor(100 * (V - vTotal));
-        return 0.01 * res;
+        return V - vTotal;
     }
 }

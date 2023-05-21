@@ -12,20 +12,24 @@ public class Cone extends GraphicObject {
 
     @Override
     public String toString() {
-        return "Cone: " + "r=" + String.format("%.2f", this.radius) + ", l=" + String.format("%.2f", this.length);
+        String r = String.format("%.2f", this.radius);
+        return "Cone: " + "r=" + r + ", l=" + String.format("%.2f", this.length);
     }
 
     @Override
     public double surfaceMeanSize() {
-        String s = String.format("%.2f", 0.01 * Math.floor(100 * Math.PI * radius * (radius + length)));
-        return Double.parseDouble(s);
+        double temp = Math.floor(100 * Math.PI * radius * (radius + length));
+        String s = String.format("%.2f", temp / 100.0);
+        double d = Double.parseDouble(s);
+        return d;
     }
 
     @Override
     public double volume() {
         double h = Math.sqrt(length * length - radius * radius);
-        int d = (int) Math.floor(100 * Math.PI * radius * radius * h / 3.0);
-        String s = String.format("%.2f", 0.01 * d);
+//        return Math.PI * radius * radius * h / 3.0;
+        double t2 = Math.floor(100 * Math.PI * radius * radius * h / 3.0);
+        String s = String.format("%.2f", t2 / 100.0);
         return Double.parseDouble(s);
     }
 

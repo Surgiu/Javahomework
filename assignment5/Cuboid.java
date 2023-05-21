@@ -14,14 +14,16 @@ public class Cuboid extends GraphicObject {
 
     @Override
     public double surfaceMeanSize() {
-        String s = String.format("%.2f", 0.01 * Math.floor((x * y + y * z + x * z) * 2.0 * 100));
+        double g = Math.floor((x * y + y * z + x * z) * 2.0 * 100.0) / 100.0;
+        String s = String.format("%.2f", g);
         return Double.parseDouble(s);
     }
 
     @Override
     public double volume() {
-        String s = String.format("%.2f", 0.01 * (int) Math.floor(100 * (x * y * z)));
-        return Double.parseDouble(s);
+        double res = Math.floor(100.0 * x * y * z) / 100.0;
+        String S = String.format("%.2f", res);
+        return Double.parseDouble(S);
     }
 
     @Override
